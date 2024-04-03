@@ -11,5 +11,5 @@ class Part(models.Model):
     name = models.CharField(max_length=30)
     number = models.IntegerField()
     creator = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "creator")
-    builder = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "builder")
+    builder = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "builder", null=True)
 
