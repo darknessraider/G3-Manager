@@ -15,7 +15,7 @@ def register(request):
                 member = Member(name=form.cleaned_data["your_name"])
 
             member.save()
-            Part(name=form.cleaned_data["part_name"], number=form.cleaned_data["part_number"], creator=member, builder=None).save()
+            Part(name=form.cleaned_data["part_name"], number=form.cleaned_data["part_number"], creator=member, builder=None, finished=False, started=False).save()
 
             return HttpResponseRedirect("/")
         
