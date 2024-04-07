@@ -12,6 +12,7 @@ class Part(models.Model):
     number = models.IntegerField()
     creator = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "creator")
     builder = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "builder", null=True)
+    priority = models.IntegerField()
     started = models.BooleanField()
     starttime = models.DateField(null=True)
     endtime = models.DateField(null=True)
