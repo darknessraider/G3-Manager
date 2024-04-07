@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from partmanager.forms import PartRegisterForm
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.http import HttpRequest
 from home.models import Member
 from partmanager.models import Part
 
@@ -24,5 +26,6 @@ def register(request):
 
     return render(request, "registerpart.html", {"form": form})
 
-def build(request):
-    return render(request, "buildpart.html")
+def get_part(request, id):
+    part = Part.objects.get(id=id)
+    return render(request, "part.html", {"part": part})
