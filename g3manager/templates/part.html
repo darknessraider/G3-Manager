@@ -2,11 +2,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1>{{ part.name }}</h1>
 <table class="table">
   <tr><td>Part Number: {{ part.number }}</td></tr>
-  <tr><td>Designer: {{ part.creator.name }}</td></tr>
-  <tr><td>Started: {{ part.started }}</td></tr>
-  <tr><td>Finished: {{ part.finished }}</td></tr>
+  <tr><td>Stage: {{ part.stages.1 }}</td></tr>
+  <tr><td>Designer: {{ part.designer.name }}</td></tr>
   <tr><td>Priority: {{ part.priority }}</td></tr>
 </table>
 {% endblock %}

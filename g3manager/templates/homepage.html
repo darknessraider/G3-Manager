@@ -6,13 +6,13 @@
   <tr>
     <th>Name</th>
     <th>Number</th>
-    <th>Creator</th>
+    <th>Designer</th>
   </tr>
   {% for part in parts %}
   <tr>
     <td><a href="part/{{ part.id }}">{{ part.name }}</a></td>
     <td>{{ part.number }}</td>
-    <td>{{ part.creator.name }}</td>
+    <td>{{ part.designer.name }}</td>
   </tr>
   {% endfor %}
 </table>

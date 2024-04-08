@@ -19,10 +19,7 @@ def register(request):
             member.save()
             Part(name=form.cleaned_data["part_name"], 
                  number=form.cleaned_data["part_number"], 
-                 creator=member, 
-                 builder=None, 
-                 finished=False, 
-                 started=False, 
+                 designer=member, 
                  priority=form.cleaned_data["priority"]).save()
 
             return HttpResponseRedirect("/")
@@ -32,6 +29,6 @@ def register(request):
 
     return render(request, "registerpart.html", {"form": form})
 
-def get_part(request, id):
+def part_profile(request, id):
     part = Part.objects.get(id=id)
-    return render(request, "part.html", {"part": part})
+    return render(request, "part.html", {"part": part, "Part": Part})

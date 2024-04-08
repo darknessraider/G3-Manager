@@ -8,13 +8,27 @@ class Subsystem(models.Model):
 
 
 class Part(models.Model):
+    class Stage(models.IntegerChoices):
+        ELECTRICAL_REVIEW = 1
+        MENTOR_APROVAL = 2
+        OFFICIAL_RELEASE = 3
+        MANUFACTURING = 4
+        QUALITY_CONTROL = 5
+        ASSEMBLY = 6
+        DONE = 7
+
+    stages = {
+        1: "Electrical Review",
+        2: "Mentor Aproval",
+        3: "Official Release",
+        4: "Manufacturing",
+        5: "Quality Control",
+        6: "Assembly",
+        7: "Done"
+    }
+
     name = models.CharField(max_length=30)
     number = models.IntegerField()
-    creator = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "creator")
-    builder = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "builder", null=True)
+    designer = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "designer")
     priority = models.IntegerField()
-    started = models.BooleanField()
-    starttime = models.DateField(null=True)
-    endtime = models.DateField(null=True)
-    finished = models.BooleanField()
-
+    stage = models.IntegerField(choices=Stage, default=Stage.ELECTRICAL_REVIEW)
