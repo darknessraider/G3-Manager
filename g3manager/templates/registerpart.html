@@ -2,9 +2,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="/partregister" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="OK">
+    <form action="/partregister" method="post" class="form-inline">
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="OK">
+        </div>
     </form>
 {% endblock %}

@@ -8,5 +8,8 @@
   <tr><td>Stage: <a href="/part/{{ part.id }}/{{ part.stage }}">{{ stagename }}</a></td></tr>
   <tr><td>Designer: {{ part.designer.name }}</td></tr>
   <tr><td>Priority: {{ part.priority }}</td></tr>
+  {% if part.electrical_reviewer %}
+  <tr><td>Electrical Reviewer: {{ part.electrical_reviewer.name }}</td></tr>
+  {% endif %}
 </table>
 {% endblock %}

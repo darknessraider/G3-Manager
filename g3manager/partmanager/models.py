@@ -29,6 +29,7 @@ class Part(models.Model):
 
     name = models.CharField(max_length=30)
     number = models.IntegerField()
-    designer = models.ForeignKey(Member, on_delete=models.PROTECT, related_name = "designer")
+    designer = models.ForeignKey(Member, on_delete=models.PROTECT, related_name="designer")
     priority = models.IntegerField()
     stage = models.IntegerField(choices=Stage, default=Stage.ELECTRICAL_REVIEW)
+    electrical_reviewer = models.ForeignKey(Member, on_delete=models.PROTECT, related_name="electrical_reviewer", null=True)

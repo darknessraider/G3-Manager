@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from partmanager.forms import PartRegisterForm
+from partmanager.forms import PartRegisterForm, ElectricalReviewForm
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import HttpRequest
@@ -34,33 +34,39 @@ def part_profile(request, id):
     return render(request, "part.html", {"part": part, "stagename": part.stages[part.stage]})
 
 
-def electrical_review(request, id):
-    return render(request, "partform.html")
-
-def mentor_aproval(request, id):
-    return HttpResponse("mentor_aproval")
-
-def offical_release(request, id):
-    return HttpResponse("offical_release")
-
-def manufacturing(request, id):
-    return HttpResponse("manufacturing")
-
-def quality_control(request, id):
-    return HttpResponse("quality_control")
-
-def assembly(request, id):
-    return HttpResponse("assembly")
+def add_stage_actor_to_part(part, stage, member):
+    match stage:
+        case Part.Stage.ELECTRICAL_REVIEW:
+            part.electrical_reviewer = member
 
 
 def part_form(request, id, stage):
-    views = {
-        Part.Stage.ELECTRICAL_REVIEW: electrical_review,
-        Part.Stage.MENTOR_APROVAL: mentor_aproval,
-        Part.Stage.OFFICIAL_RELEASE: offical_release,
-        Part.Stage.MANUFACTURING: manufacturing,
-        Part.Stage.QUALITY_CONTROL: quality_control,
-        Part.Stage.ASSEMBLY: assembly,
+    forms = {
+        Part.Stage.ELECTRICAL_REVIEW: ElectricalReviewForm,
+        #Part.Stage.MENTOR_APROVAL: mentor_aproval,
+        #Part.Stage.OFFICIAL_RELEASE: offical_release,
+        #Part.Stage.MANUFACTURING: manufacturing,
+        #Part.Stage.QUALITY_CONTROL: quality_control,
+        #Part.Stage.ASSEMBLY: assembly,
     }
 
-    return views[stage](request, id)
+    form = forms[stage]
+
+    if request.method == "POST":
+        form = ElectricalReviewForm(request.POST)
+        if form.is_valid():
+            if Member.objects.filter(name=form.cleaned_data["name"]).exists():
+                member = Member.objects.get(name=form.cleaned_data["name"])
+
+            member.save()
+            part = Part.objects.get(id=id)
+            part.stage += 1
+            add_stage_actor_to_part(part, stage, member)
+            part.save()
+
+            return HttpResponseRedirect("/")
+        
+    else:
+        form = ElectricalReviewForm()
+
+    return render(request, "partform.html", {"form": form})
