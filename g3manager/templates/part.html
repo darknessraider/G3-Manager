@@ -5,7 +5,7 @@
 <h1>{{ part.name }}</h1>
 <table class="table">
   <tr><td>Part Number: {{ part.number }}</td></tr>
-  <tr><td>Stage: {{ part.stages.1 }}</td></tr>
+  <tr><td>Stage: <a href="/part/{{ part.id }}/{{ part.stage }}">{{ stagename }}</a></td></tr>
   <tr><td>Designer: {{ part.designer.name }}</td></tr>
   <tr><td>Priority: {{ part.priority }}</td></tr>
 </table>

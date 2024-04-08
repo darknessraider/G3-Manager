@@ -31,4 +31,36 @@ def register(request):
 
 def part_profile(request, id):
     part = Part.objects.get(id=id)
-    return render(request, "part.html", {"part": part, "Part": Part})
+    return render(request, "part.html", {"part": part, "stagename": part.stages[part.stage]})
+
+
+def electrical_review(request, id):
+    return render(request, "partform.html")
+
+def mentor_aproval(request, id):
+    return HttpResponse("mentor_aproval")
+
+def offical_release(request, id):
+    return HttpResponse("offical_release")
+
+def manufacturing(request, id):
+    return HttpResponse("manufacturing")
+
+def quality_control(request, id):
+    return HttpResponse("quality_control")
+
+def assembly(request, id):
+    return HttpResponse("assembly")
+
+
+def part_form(request, id, stage):
+    views = {
+        Part.Stage.ELECTRICAL_REVIEW: electrical_review,
+        Part.Stage.MENTOR_APROVAL: mentor_aproval,
+        Part.Stage.OFFICIAL_RELEASE: offical_release,
+        Part.Stage.MANUFACTURING: manufacturing,
+        Part.Stage.QUALITY_CONTROL: quality_control,
+        Part.Stage.ASSEMBLY: assembly,
+    }
+
+    return views[stage](request, id)
